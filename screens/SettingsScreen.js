@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import {
   View,
   Text,
-  Button,
   TouchableOpacity,
   StyleSheet,
   Alert,
@@ -107,7 +106,10 @@ export default function SettingsScreen() {
       >
         Theme Mode: {themeMode.toUpperCase()}
       </Text>
-      <Button title="Toggle Theme" onPress={toggleTheme} color={themeColor} />
+
+      <TouchableOpacity style={styles.toggleBtn} onPress={toggleTheme}>
+        <Text style={styles.toggleText}>Toggle Theme</Text>
+      </TouchableOpacity>
 
       <Text
         style={[
@@ -191,5 +193,15 @@ const getStyles = (themeMode, themeColor) =>
       padding: 15,
       borderWidth: 2,
       borderColor: themeColor,
+    },
+    toggleBtn: {
+      marginTop: 10,
+      padding: 15,
+      backgroundColor: themeColor, // ← this now updates properly
+    },
+    toggleText: {
+      color: '#fff',
+      textAlign: 'center',
+      fontWeight: 'bold',
     },
   });
