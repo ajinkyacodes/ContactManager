@@ -27,19 +27,19 @@ const ContactModal = ({
             style={styles.input}
           />
           <TextInput
-            placeholder="Email"
-            value={contact.email}
-            onChangeText={(text) => setContact({ ...contact, email: text })}
-            style={styles.input}
-            keyboardType="email-address"
-          />
-          <TextInput
             placeholder="Mobile"
             value={contact.mobile}
             onChangeText={(text) => setContact({ ...contact, mobile: text })}
             style={styles.input}
             keyboardType="phone-pad"
           />
+          <TextInput
+            placeholder="Email"
+            value={contact.email}
+            onChangeText={(text) => setContact({ ...contact, email: text })}
+            style={styles.input}
+            keyboardType="email-address"
+          />          
           <TextInput
             placeholder="Address"
             value={contact.address}
@@ -95,10 +95,14 @@ const getStyles = (themeMode, themeColor, fontSize) =>
       marginTop: 15,
     },
     cancelButton: {
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: 5,
       marginRight: 10,
+      backgroundColor: '#f00'
     },
     cancelText: {
-      color: 'red',
+      color: '#fff',
       fontSize,
     },
     saveButton: {

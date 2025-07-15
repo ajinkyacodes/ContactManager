@@ -21,9 +21,9 @@ const ContactCard = ({ contact, onEdit, onDelete }) => {
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.detail}>📧 {contact.email}</Text>
       <Text style={styles.detail}>📱 {contact.mobile}</Text>
-      <Text style={styles.detail}>🏠 {contact.address}</Text>
+      { contact.email !== '' && <Text style={styles.detail}>📧 {contact.email}</Text> }
+      { contact.address !== '' && <Text style={styles.detail}>🏠 {contact.address}</Text> }
     </View>
   );
 };
