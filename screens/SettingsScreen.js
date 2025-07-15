@@ -1,11 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { ThemeContext } from '../contexts/ThemeContext';
 
@@ -13,6 +7,7 @@ import { loadContacts } from '../storage/contactStorage';
 
 import RNFS from 'react-native-fs';
 import { PermissionsAndroid, Platform } from 'react-native';
+import Share from 'react-native-share';
 
 const COLORS = ['#2196F3', '#4CAF50', '#FF5722', '#9C27B0', '#E91E63'];
 
@@ -53,11 +48,21 @@ const exportContactsToFile = async contacts => {
 
   const vcfContent = generateVCardFileContent(contacts);
   const fileName = `contacts_${Date.now()}.vcf`;
-  const path = `${RNFS.DownloadDirectoryPath}/${fileName}`;
+  
+  // ✅ Save to app's private storage
+  const path = `${RNFS.DocumentDirectoryPath}/${fileName}`;
 
   try {
     await RNFS.writeFile(path, vcfContent, 'utf8');
-    Alert.alert('Success', `Contacts exported to Downloads folder.`);
+
+    // ✅ Immediately open the share sheet
+    await Share.open({
+      url: `file://${path}`,
+      type: 'text/x-vcard',
+      title: 'Share Contacts File',
+    });
+
+    // Alert.alert('Success', `Contacts exported to Downloads folder.`);
   } catch (err) {
     console.error('Export failed:', err);
     Alert.alert('Error', 'Failed to export contacts.');
