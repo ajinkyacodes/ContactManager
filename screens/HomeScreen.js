@@ -48,6 +48,11 @@ const HomeScreen = () => {
       updatedContacts.push(contact);
     }
 
+    // ✅ Sort alphabetically by name (case-insensitive)
+    updatedContacts.sort((a, b) =>
+      a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
+    );
+
     setContacts(updatedContacts);
     await saveContacts(updatedContacts);
     closeModal();
